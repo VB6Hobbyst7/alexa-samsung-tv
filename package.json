@@ -1,0 +1,24 @@
+{
+  "name": "alexa-samsung",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h-simpson/alexa-samsung.git"
+  },
+  "author": "Hugh Simpson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/h-simpson/alexa-samsung/issues"
+  },
+  "homepage": "https://github.com/h-simpson/alexa-samsung#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.11",
+    "wake_on_lan": "0.0.4",
+    "ws": "^3.1.0"
+  }
+}
