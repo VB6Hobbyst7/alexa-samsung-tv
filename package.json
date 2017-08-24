@@ -9,11 +9,7 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "chai": "^3.4.1",
-    "mocha": "^2.3.4",
-    "supertest": "^2.0.1"
-  },
+  "devDependencies": {},
   "dependencies": {
     "alexa-app": "^4.1.0",
     "chalk": "^2.1.0",
