@@ -4,7 +4,6 @@ const fs = require('fs')
 const https = require('https')
 const sendKey = require('./lib/sendKey')
 const chalk = require('chalk')
-const config = require('./config')
 const dotenv = require('dotenv')
 dotenv.config()
 
