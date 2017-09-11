@@ -52,12 +52,11 @@ alexaApp.launch(function(request, response) {
 alexaApp.intent(
   'AMAZON.HelpIntent',
   {
-    slots: {},
-    utterances: []
+    utterances: ['help', 'what can you do']
   },
   function(request, response) {
     var helpOutput =
-      "You can say 'some statement' or ask 'some question'. You can also say stop or exit to quit."
+      "You can say 'ask T.V. remote mute or turn off'. You can also say stop or exit to quit."
     var reprompt = 'What would you like to do?'
     // AMAZON.HelpIntent must leave session open -> .shouldEndSession(false)
     response.say(helpOutput).reprompt(reprompt).shouldEndSession(false)
@@ -68,11 +67,10 @@ alexaApp.intent(
 alexaApp.intent(
   'AMAZON.StopIntent',
   {
-    slots: {},
-    utterances: []
+    utterances: ['stop', 'exit', 'close']
   },
   function(request, response) {
-    var stopOutput = "Don't You Worry. I'll be back."
+    var stopOutput = 'Closing T.V. remote.'
     response.say(stopOutput)
     return
   }
@@ -81,8 +79,7 @@ alexaApp.intent(
 alexaApp.intent(
   'AMAZON.CancelIntent',
   {
-    slots: {},
-    utterances: []
+    utterances: ['cancel']
   },
   function(request, response) {
     var cancelOutput = 'No problem. Request cancelled.'
@@ -105,7 +102,7 @@ alexaApp.intent(
 alexaApp.intent(
   'mute',
   {
-    utterances: ['mute']
+    utterances: ['mute', 'unmute']
   },
   function(request, response) {
     response.say('Muted')
