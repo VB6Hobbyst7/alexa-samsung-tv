@@ -22,7 +22,7 @@ const httpsOptions = {
   cert: fs.readFileSync(CERT_PATH)
 }
 
-// ALWAYS setup the alexa app and attach it to express before anything else.
+// Always setup the alexa app and attach it to express before anything else.
 const alexaApp = new alexa.app(appName)
 
 alexaApp.express({
@@ -38,8 +38,7 @@ alexaApp.express({
   debug: true
 })
 
-// now POST calls to /tv-remote in express will be handled by the app.request() function
-
+// Open WebSocket and send key.
 const remoteResponse = key => {
   console.info(`${chalk.green('Received command:', key)}`)
   sendKey(key, () => {})
@@ -91,10 +90,10 @@ alexaApp.intent(
 alexaApp.intent(
   'power',
   {
-    utterances: ['power', 'turn on', 'turn off']
+    utterances: ['power on', 'power off', 'turn on', 'turn off']
   },
   function(request, response) {
-    response.say('Powering on')
+    response.say('Ok')
     remoteResponse('KEY_POWER')
   }
 )
