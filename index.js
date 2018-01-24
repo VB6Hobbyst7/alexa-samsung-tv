@@ -2,7 +2,8 @@ const express = require('express')
 const alexa = require('alexa-app')
 const fs = require('fs')
 const https = require('https')
-const sendKey = require('./lib/sendKey')
+const sendKey = require('./lib/sendKey').sendKey
+const batchSend = require('./lib/sendKey').batchSend
 const chalk = require('chalk')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -38,12 +39,6 @@ alexaApp.express({
   debug: true
 })
 
-// Open WebSocket and send key.
-const remoteResponse = key => {
-  console.info(`${chalk.green('Received command:', key)}`)
-  sendKey(key, () => {})
-}
-
 alexaApp.launch(function(request, response) {
   response.say('You launched the app!')
 })
@@ -54,11 +49,13 @@ alexaApp.intent(
     utterances: ['help', 'what can you do']
   },
   function(request, response) {
-    var helpOutput =
-      "You can say 'ask T.V. remote mute or turn off'. You can also say stop or exit to quit."
+    var helpOutput = "You can say 'ask T.V. remote mute or turn off'. You can also say stop or exit to quit."
     var reprompt = 'What would you like to do?'
     // AMAZON.HelpIntent must leave session open -> .shouldEndSession(false)
-    response.say(helpOutput).reprompt(reprompt).shouldEndSession(false)
+    response
+      .say(helpOutput)
+      .reprompt(reprompt)
+      .shouldEndSession(false)
     return
   }
 )
@@ -94,7 +91,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Ok')
-    remoteResponse('KEY_POWER')
+    sendKey('KEY_POWER')
   }
 )
 
@@ -105,7 +102,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Muted')
-    remoteResponse('KEY_MUTE')
+    sendKey('KEY_MUTE')
   }
 )
 
@@ -116,7 +113,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Volume up')
-    remoteResponse('KEY_VOLUP')
+    sendKey('KEY_VOLUP')
   }
 )
 
@@ -127,7 +124,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Volume down')
-    remoteResponse('KEY_VOLDOWN')
+    sendKey('KEY_VOLDOWN')
   }
 )
 
@@ -147,4 +144,5 @@ const server = https.createServer(httpsOptions, app).listen(PORT, () => {
   console.info(`
 ${chalk.blue.dim.bold('Listening on port:', PORT)}
 ${chalk.blue.dim.bold(`${HOSTNAME}:${PORT}/${appName}`)}`)
+  batchSend()
 })
