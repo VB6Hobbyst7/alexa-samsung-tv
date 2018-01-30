@@ -124,7 +124,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Volume down')
-    batchSend(['KEY_VOLDOWN', 'KEY_VOLDOWN'])
+    batchSend(['KEY_VOLDOWN', 'KEY_VOLDOWN', 'KEY_VOLDOWN', 'KEY_VOLDOWN'])
   }
 )
 
