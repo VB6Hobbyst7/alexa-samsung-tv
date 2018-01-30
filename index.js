@@ -124,7 +124,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Volume down')
-    sendKey('KEY_VOLDOWN')
+    batchSend(['KEY_VOLDOWN', 'KEY_VOLDOWN'])
   }
 )
 
@@ -132,17 +132,16 @@ alexaApp.intent(
 const intents = alexaApp.schema()
 const utterances = alexaApp.utterances()
 console.info(`
-${chalk.blue.dim.bold('Your app intents:')}
-${chalk.grey.dim(intents)}
+${chalk.blue.bold('Your app intents:')}
+${chalk.grey(intents)}
 
 ${chalk.blue.dim.bold('Your app utterances:')}
-${chalk.grey.dim(utterances)}
+${chalk.grey(utterances)}
 `)
 
 // Output port and remote endpoint
 const server = https.createServer(httpsOptions, app).listen(PORT, () => {
   console.info(`
-${chalk.blue.dim.bold('Listening on port:', PORT)}
-${chalk.blue.dim.bold(`${HOSTNAME}:${PORT}/${appName}`)}`)
-  batchSend()
+${chalk.blue.bold('Listening on port:', PORT)}
+${chalk.blue.bold(`${HOSTNAME}:${PORT}/${appName}`)}`)
 })
