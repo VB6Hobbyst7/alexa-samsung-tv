@@ -6,6 +6,7 @@ const sendKey = require('./lib/sendKey').sendKey
 const batchSend = require('./lib/sendKey').batchSend
 const chalk = require('chalk')
 const dotenv = require('dotenv')
+const { KEY_POWER, KEY_MUTE, KEY_VOLUP, KEY_VOLDOWN } = require('./lib/remoteKeys')
 dotenv.config()
 
 // Skill name
@@ -91,7 +92,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Ok')
-    sendKey('KEY_POWER')
+    sendKey(KEY_POWER)
   }
 )
 
@@ -102,7 +103,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Muted')
-    sendKey('KEY_MUTE')
+    sendKey(KEY_MUTE)
   }
 )
 
@@ -113,7 +114,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Volume up')
-    sendKey('KEY_VOLUP')
+    sendKey(KEY_VOLUP)
   }
 )
 
@@ -124,7 +125,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Volume down')
-    batchSend(['KEY_VOLDOWN', 'KEY_VOLDOWN', 'KEY_VOLDOWN', 'KEY_VOLDOWN'])
+    batchSend([KEY_VOLDOWN, KEY_VOLDOWN, KEY_VOLDOWN, KEY_VOLDOWN])
   }
 )
 
