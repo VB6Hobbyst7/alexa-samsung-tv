@@ -6,7 +6,7 @@ const sendKey = require('./lib/sendKey').sendKey
 const batchSend = require('./lib/sendKey').batchSend
 const chalk = require('chalk')
 const dotenv = require('dotenv')
-const { KEY_POWER, KEY_MUTE, KEY_VOLUP, KEY_VOLDOWN } = require('./lib/remoteKeys')
+const { KEY_POWER, KEY_MUTE, KEY_VOLUP, KEY_VOLDOWN, KEY_CHDOWN, KEY_CHUP } = require('./lib/remoteKeys')
 dotenv.config()
 
 // Skill name
@@ -88,7 +88,7 @@ alexaApp.intent(
 alexaApp.intent(
   'power',
   {
-    utterances: ['power on', 'power off', 'turn on', 'turn off']
+    utterances: ['power', 'power on', 'power off', 'turn on', 'turn off']
   },
   function(request, response) {
     response.say('Ok')
@@ -114,7 +114,7 @@ alexaApp.intent(
   },
   function(request, response) {
     response.say('Volume up')
-    sendKey(KEY_VOLUP)
+    batchSend([KEY_VOLUP, KEY_VOLUP, KEY_VOLUP, KEY_VOLUP])
   }
 )
 
@@ -126,6 +126,28 @@ alexaApp.intent(
   function(request, response) {
     response.say('Volume down')
     batchSend([KEY_VOLDOWN, KEY_VOLDOWN, KEY_VOLDOWN, KEY_VOLDOWN])
+  }
+)
+
+alexaApp.intent(
+  'channelUp',
+  {
+    utterances: ['next channel', 'channel up']
+  },
+  function(request, response) {
+    response.say('Next channel')
+    sendKey(KEY_CHUP)
+  }
+)
+
+alexaApp.intent(
+  'channelDown',
+  {
+    utterances: ['previous channel', 'channel down', 'last channel']
+  },
+  function(request, response) {
+    response.say('Previous channel')
+    sendKey(KEY_CHDOWN)
   }
 )
 
